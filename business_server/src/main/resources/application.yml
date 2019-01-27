@@ -1,0 +1,4 @@
+business:
+  name: sfc
+  age: 24
+  uuid: ${random.uuid}
