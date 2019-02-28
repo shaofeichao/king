@@ -14,7 +14,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/createUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/selectUser", method = RequestMethod.POST)
     public String createUser(@RequestParam String username){
         System.out.println(">>>>>>"+username);
         userService.selectUserList();
