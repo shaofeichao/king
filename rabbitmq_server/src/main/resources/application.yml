@@ -1,0 +1,10 @@
+info:
+  description: 消息
+
+# rabbitmq相关配置
+spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: mq
+    password: mq
