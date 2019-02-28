@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="10 seconds">
+    <!--定义日志文件的存储地址log_path绝对路径和前缀名log_context -->
+    <property name="og_path" value="sso_server/src/main/resources/logs" />
+    <property name="log_context" value="xxx_server" />
+
+    <!-- 控制台输出一般信息按照每天生成日志文件 -->
+    <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${og_path}/${log_context}-info.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 日志输出的文件名 -->
+            <fileNamePattern>${og_path}/${log_context}-info-%d{yyyyMMdd}.log.%i
+            </fileNamePattern>
+            <!-- 单个日志文件最多大小MB，日志文件保存天数，日志最大不能超过多少GB -->
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} -%msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <!--错误信息按照每天生成日志文件 -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <File>${og_path}/${log_context}-error.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 每天一归档 -->
+            <fileNamePattern>${og_path}/${log_context}-error-%d{yyyyMMdd}.log.%i
+            </fileNamePattern>
+            <!-- 单个日志文件最多500MB, 30天的日志周期，最大不能超过20GB -->
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} -%msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 ：
+            |%blue(%thread)  线程 如 ：DiscoveryClient-CacheRefreshExecutor-0-->
+            <pattern>%yellow(%date{yyyy-MM-dd HH:mm:ss}) |%highlight(%-5level)  |%green(%logger:%line) |%black(%msg%n)</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 日志输出级别 这样设置不打印日志 -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="INFO_FILE" />
+        <appender-ref ref="ERROR_FILE" />
+    </root>
+
+    <!--日志异步到数据库 -->
+    <!--<appender name="DB" class="ch.qos.logback.classic.db.DBAppender">-->
+    <!--&lt;!&ndash;日志异步到数据库 &ndash;&gt;-->
+    <!--<connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">-->
+    <!--&lt;!&ndash;连接池 &ndash;&gt;-->
+    <!--<dataSource class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
+    <!--<driverClass>com.mysql.jdbc.Driver</driverClass>-->
+    <!--<url>jdbc:mysql://127.0.0.1:3306/databaseName</url>-->
+    <!--<user>root</user>-->
+    <!--<password>root</password>-->
+    <!--</dataSource>-->
+    <!--</connectionSource>-->
+    <!--</appender>-->
+</configuration>
