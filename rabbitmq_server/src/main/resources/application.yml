@@ -1,7 +1,7 @@
 info:
-  description: 消息
+  description:  MQ
 
-# rabbitmq相关配置
+# rabbitmq閰嶇疆
 spring:
   rabbitmq:
     host: 127.0.0.1
