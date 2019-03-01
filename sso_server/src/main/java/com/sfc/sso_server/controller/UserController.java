@@ -1,10 +1,15 @@
 package com.sfc.sso_server.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.sfc.sso_server.entity.User;
 import com.sfc.sso_server.service.interfaces.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -15,11 +20,29 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 测试查询数据
+     * @param username
+     * @return
+     */
     @RequestMapping(value = "/selectUser", method = RequestMethod.GET)
     public String selectUser(@RequestParam String username){
         log.info(">>>>>>获取到前台参数{}...",username);
-        String respJson = userService.selectUserList();
+        String respJson = userService.selectUser();
         return respJson;
+    }
+
+    /**
+     * 测试分页查询数据PageHelper
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping(value = "/selectUserPageUtil", method = RequestMethod.GET)
+    public PageInfo<User> selectUserPageUtil(@RequestParam int currentPage, @RequestParam int pageSize){
+        log.info(">>>>>>获取到前台参数当前页:{},页大小:{}",currentPage, pageSize);
+        PageInfo<User> userList = userService.selectUserList(currentPage,pageSize);
+        return userList;
     }
 
     /**

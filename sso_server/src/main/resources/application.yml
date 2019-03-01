@@ -12,21 +12,23 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
     # 使用druid数据源
+  druid:
     type: com.alibaba.druid.pool.DruidDataSource
     filters: stat
     maxActive: 20
     initialSize: 1
     maxWait: 60000
     minIdle: 1
-    timeBetweenEvictionRunsMillis: 60000
-    minEvictableIdleTimeMillis: 300000
-    validationQuery: select 'x'
-    testWhileIdle: true
-    testOnBorrow: false
+    timeBetweenEvictionRunsMillis: 30000  #每30秒运行一次空闲连接回收器
+    minEvictableIdleTimeMillis: 1800000  #池中的连接空闲30分钟后被回收,默认值就是30分钟
+    validationQuery: select 1 #验证连接是否可用，使用的SQL语句
+    testWhileIdle: true #指明连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除
+    testOnBorrow: false #借出连接时不要测试，否则很影响性能
     testOnReturn: false
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
-
+  thymeleaf:
+    cache:  false
 # mybatis配置
 mybatis:
   mapper-locations: classpath:com/sfc/sso_server/dao/impl/*.xml  #这里是mapper的绝对路径
