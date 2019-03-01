@@ -42,7 +42,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <!--不去掉yml会报错 <scope>runtbuqime</scope>-->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
