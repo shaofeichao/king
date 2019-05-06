@@ -1,10 +1,14 @@
 info:
-  description:  MQ
+  description:
+    name: RabbitMQ
+
+server:
+  port: 8090
 
 # rabbitmq配置
 spring:
   rabbitmq:
-    host: 127.0.0.1
+    host: 123.206.75.61
     port: 5672
-    username: mq
-    password: mq
+    username: admin
+    password: admin

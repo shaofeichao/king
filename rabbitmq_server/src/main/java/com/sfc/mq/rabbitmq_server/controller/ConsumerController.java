@@ -16,6 +16,6 @@ public class ConsumerController {
      */
     @RabbitHandler
     public void process(String message) {
-        System.out.println("接收的消息为:"+message);
+        System.out.println("开始处理当前消息:"+message);
     }
 }
