@@ -29,6 +29,24 @@ spring:
     maxOpenPreparedStatements: 20
   thymeleaf:
     cache:  false
+    mode:  HTML5
+    endoding:  UTF-8
+  #redis配置
+  redis:
+    #Redis端口
+    host: 123.206.75.61
+    ## Redis服务器连接端口
+    port: 6379
+    ## Redis服务器连接密码（默认为空）
+    password:
+    ## 连接超时时间（毫秒）
+    timeout: 3000
+    ## 连接池中的最大连接数
+    poolMaxTotal: 10
+    ## 连接池中的最大空闲连接
+    poolMaxIdle: 10
+    ## 连接池最大阻塞等待时间（使用负值表示没有限制）
+    poolMaxWait: 3
 # mybatis配置
 mybatis:
   mapper-locations: classpath:com/sfc/sso_server/dao/impl/*.xml  #这里是mapper的绝对路径

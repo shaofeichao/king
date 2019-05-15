@@ -6,7 +6,9 @@ import com.sfc.sso_server.entity.User;
 import com.sfc.sso_server.service.interfaces.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +22,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
     /**
      * 测试查询数据
      * @param username
@@ -54,5 +58,23 @@ public class UserController {
     public String index(){
         log.info(">>>>>>获取到前台url");
         return "index";
+    }
+
+    @RequestMapping(value = "/insertUser", method = RequestMethod.GET)
+    public void insertUser() throws Exception {
+        log.info(">>>>>>insert start..");
+        User user = new User();
+        user.setUsername("小明");
+        user.setAge(20);
+        user.setAddress("上海");
+        user.setUserpassword("admin");
+        int count = userService.insertUser(user);
+    }
+
+    @RequestMapping(value = "/setRedis", method = RequestMethod.GET)
+    public void setRedis() throws Exception {
+        log.info(">>>>>>setRedis start..");
+        // 保存字符串
+        stringRedisTemplate.opsForValue().set("aaa", "111");
     }
 }

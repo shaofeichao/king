@@ -8,4 +8,5 @@ import java.util.List;
 public interface UserService {
     public String selectUser();
     public PageInfo<User> selectUserList(int currentPage,int pageSize);
+    public int insertUser(User user) throws RuntimeException;
 }
