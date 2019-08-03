@@ -1,8 +1,6 @@
 package com.sfc.sso_server.dao.interfaces;
 
 import com.sfc.sso_server.entity.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 

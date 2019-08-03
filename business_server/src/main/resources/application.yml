@@ -1,4 +1,15 @@
+spring:
+  application:
+    name: business_server
+server:
+  port: 8090
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
 business:
   name: sfc
   age: 24
   uuid: ${random.uuid}
+
