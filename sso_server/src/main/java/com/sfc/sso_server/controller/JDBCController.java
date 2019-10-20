@@ -1,6 +1,8 @@
 package com.sfc.sso_server.controller;
 
+import com.sfc.sso_server.entity.users;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,10 +17,9 @@ public class JDBCController {
     private JdbcTemplate jdbcTemplate;
 
     @RequestMapping("/getUsers")
-    public List<Map<String, Object>> getDbType(){
+    public void getDbType(){
         String sql = "select * from user";
-        List<Map<String, Object>> list =  jdbcTemplate.queryForList(sql);
-        System.out.print(list.size());
-        return list;
+        List<users> users =  jdbcTemplate.query(sql,new BeanPropertyRowMapper(users.class));
+        System.out.print(users.size());
     }
 }
