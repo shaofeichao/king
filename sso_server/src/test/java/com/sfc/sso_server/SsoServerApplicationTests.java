@@ -1,5 +1,6 @@
 package com.sfc.sso_server;
 
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,4 +104,50 @@ public class SsoServerApplicationTests {
             System.out.println();
         }
     }
+
+    @Test
+    public void test4(){
+        String ruleId = null;
+        if(ruleId!=null){
+            System.out.println("!=null");
+        }else{
+            System.out.println("==null");
+        }
+    }
+
+    @Test
+    public void test5(){
+        String ruleId = "CREATE TABLE tmp_groupquery_inner_950db48cf0524f8aadcd75d9953f0d99 STORED AS PARQUET AS  SELECT DISTINCT t0.member_id FROM plt_anta_member t0 INNER JOIN plt_anta_member_loyalty t1 ON t0.member_id = t1.member_id INNER JOIN tmp_meta_85008588258444d9926da9e627e66dda_1_Intersect_1 t2 ON t2.member_id = t0.member_id WHERE  ( t0.mobile = '18291957767' ) AND  ( t1.grade IN ('7') ) AND  ( exists (select * from shop_selector_result ruleResult where ruleResult.rules_id = 'c978d792-2fec-4771-a18c-19dd30657429' and ruleResult.datas = t0.reg_store_id) ) and （t0.mobile = '17610330766'）";
+        String id = "000000-2fec-4771-a18c-19dd30657429";
+        if(ruleId.indexOf("ruleResult.rules_id = '") > 0){
+            String replaces = ruleId.substring(ruleId.indexOf("ruleResult.rules_id = '")+23);
+            System.out.println("replaces=" + replaces);
+            replaces = replaces.substring(0,replaces.indexOf("'"));
+
+            System.out.println("replaces2=" + replaces);
+
+            ruleId = ruleId.replace(replaces,id);
+
+            ruleId = ruleId + "000";
+            System.out.println(ruleId);
+        }
+    }
+
+    @Test
+    public void test6(){
+        /*String ruleId = "{\"relationOperation\":\"AND\",\"globalFilterList\":[1,2],\"propertyConditionList\":[],\"behaviorConditionList\":[],\"groupingConditionList\":[{\"groupingConditionList\":[],\"propertyConditionList\":[{\"key\":\"normal_model@plt_anta_member.fullname\",\"operator\":\"Equal\",\"singleValueParameter\":{\"value\":\"sfc\",\"queryType\":\"字符输入\"}}],\"computeByResult\":false},{\"groupingConditionList\":[],\"propertyConditionList\":[{\"key\":\"normal_model@plt_anta_member.mobile\",\"operator\":\"Equal\",\"singleValueParameter\":{\"value\":\"17610330766\",\"queryType\":\"字符输入\"}}],\"computeByResult\":false},{\"groupingConditionList\":[],\"propertyConditionList\":[{\"key\":\"normal_model@plt_anta_member.reg_store_id\",\"operator\":\"In\",\"multiValueParameter\":{\"operator\":\"AND\",\"values\":[\"nodeRuleId\",\"view\",\"nodeRuleId:9c57a46a-2449-4a2d-809a-91d055b55ccb\"],\"queryType\":\"数据选择器类型\"}}],\"computeByResult\":false}],\"campaignConditionList\":[]}";
+        JSONObject paramsObject = JSONObject.parseObject(ruleId);
+        System.out.println(paramsObject);
+        System.out.println(paramsObject.get("relationOperation"));*/
+        int a = (int) (Math.random()*(300-100+1)+400);
+        int b = (int) (Math.random()*(300-100+1)+400);
+        int c = (int) (Math.random()*(300-100+1)+400);
+        System.out.println(a + "-" + b + "-" + c);
+
+        int aa = (int) (Math.random()*(0-100+1)+300);
+        int bb = (int) (Math.random()*(0-100+1)+300);
+        int cc = (int) (Math.random()*(0-100+1)+400);
+        System.out.println(aa + "-" + bb + "-" + cc);
+    }
+
 }

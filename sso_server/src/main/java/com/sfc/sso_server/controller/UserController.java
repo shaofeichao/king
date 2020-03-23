@@ -73,6 +73,7 @@ public class UserController {
     public void setRedis() throws Exception {
         log.info(">>>>>>setRedis start..");
         // 保存字符串
-        stringRedisTemplate.opsForValue().set("aaa", "111");
+        //stringRedisTemplate.opsForValue().set("aaa", "111");
+        System.out.println(stringRedisTemplate.opsForValue().setIfAbsent("aaa","000"));
     }
 }
