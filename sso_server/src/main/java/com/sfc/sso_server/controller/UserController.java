@@ -2,14 +2,22 @@ package com.sfc.sso_server.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.sfc.sso_server.entity.User;
+import com.sfc.sso_server.pub.utils.RedissonService;
 import com.sfc.sso_server.service.interfaces.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.hssf.record.formula.functions.T;
+import org.redisson.api.RBucket;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RestController
@@ -22,6 +30,13 @@ public class UserController {
 
     @Autowired
     StringRedisTemplate stringRedisTemplate;
+
+    @Autowired(required = false)
+    private RedissonClient redissonClient;
+
+    @Autowired
+    private RedissonService redissonService;
+
     /**
      * 测试查询数据
      * @param username
@@ -74,6 +89,17 @@ public class UserController {
         log.info(">>>>>>setRedis start..");
         // 保存字符串
         //stringRedisTemplate.opsForValue().set("aaa", "111");
-        System.out.println(stringRedisTemplate.opsForValue().setIfAbsent("aaa","000"));
+        //System.out.println(stringRedisTemplate.opsForValue().setIfAbsent("aaa","000"));
+        System.out.println(stringRedisTemplate.opsForValue().get("name"));
+    }
+
+    @RequestMapping(value = "/setRedisson", method = RequestMethod.GET)
+    public void setRedisson() throws Exception {
+        log.info(">>>>>>setRedisson start..");
+        //从redis里存值 ,RBucket 普通的管道
+        RBucket<String> bucket = redissonClient.getBucket("name");
+        bucket.set("false");
+        bucket = redissonClient.getBucket("name");
+        System.out.println(bucket.get());
     }
 }
