@@ -97,9 +97,11 @@ public class UserController {
     public void setRedisson() throws Exception {
         log.info(">>>>>>setRedisson start..");
         //从redis里存值 ,RBucket 普通的管道
-        RBucket<String> bucket = redissonClient.getBucket("name");
-        bucket.set("false");
-        bucket = redissonClient.getBucket("name");
-        System.out.println(bucket.get());
+        System.out.println(redissonClient.getBucket("name").isExists());
+        if(redissonClient.getBucket("name").isExists()){
+            System.out.println(">>>"+redissonClient.getBucket("name").get());
+        }else{
+            System.out.println("！！！");
+        }
     }
 }
