@@ -1,6 +1,7 @@
 package com.sfc.mq.kafka_server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,11 +17,14 @@ public class SendController {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
+    @Value("${topic}")
+    private  String topic;
+
     @RequestMapping(value = "/send", method = RequestMethod.GET)
     public String send(String msg) {
         System.out.println(">>>>>>" + msg);
         String message = "{\"order_no\":\"5054264322864215498\"}";
-        kafkaTemplate.send("test", message);
+        kafkaTemplate.send(topic, message);
         return "已发送";
     }
 }

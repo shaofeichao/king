@@ -10,7 +10,7 @@ import java.util.Optional;
  */
 @Component
 public class ConsumerController {
-    @KafkaListener(topics = {"test"})
+    @KafkaListener(topics = {"${topic}"})
     public void listen(ConsumerRecord<?, ?> record) {
         Optional<?> kafkaMessage = Optional.ofNullable(record.value());
         if (kafkaMessage.isPresent()) {

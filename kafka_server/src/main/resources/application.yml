@@ -1,0 +1,19 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092 #kafka服务器地址 多个以,号隔开
+    #生产者配置
+    producer:
+      batch-size: 16384  #每次批量发送信息的数量
+      buffer-memory: 33554432 #达到该缓冲区大小就发送数据
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer #key的序列化器
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer #value的序列化器
+    #消费者配置
+    consumer:
+      group-id: test #消费者分组id,同一个分组的消费者不会读取到同一个消息
+      enable-auto-commit: true #启用自动提交偏移量
+      auto-commit-interval: 100 #设置偏移量提交间隔
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer #key的反序列化器
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer #value的反序列化器
+
+#自定义主题名,在代码中可以读取,方便修改主题
+topic: test
