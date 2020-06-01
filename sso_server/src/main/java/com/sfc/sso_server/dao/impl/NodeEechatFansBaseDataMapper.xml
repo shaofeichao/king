@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sfc.sso_server.dao.interfaces.NodeEechatFansBaseDataMapper">
+  <resultMap id="BaseResultMap" type="com.sfc.sso_server.entity.NodeEechatFansBaseData">
+    <result column="node_code" jdbcType="VARCHAR" property="nodeCode" />
+    <result column="node_name" jdbcType="VARCHAR" property="nodeName" />
+    <result column="subject" jdbcType="VARCHAR" property="subject" />
+    <result column="message_type" jdbcType="VARCHAR" property="messageType" />
+    <result column="auth_appid" jdbcType="VARCHAR" property="authAppid" />
+    <result column="material_id" jdbcType="VARCHAR" property="materialId" />
+    <result column="material_name" jdbcType="VARCHAR" property="materialName" />
+    <result column="material_type" jdbcType="VARCHAR" property="materialType" />
+    <result column="text_body" jdbcType="LONGVARCHAR" property="textBody" />
+    <result column="image_url" jdbcType="LONGVARCHAR" property="imageUrl" />
+    <result column="out_type" jdbcType="VARCHAR" property="outType" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, node_code, node_name, subject, message_type, auth_appid, material_id, material_name, 
+    material_type, text_body, image_url, out_type, remark, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from node_wechat_fans_base_data
+    where node_code = #{node_code,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insert" parameterType="com.sfc.sso_server.entity.NodeEechatFansBaseData">
+    replace into node_wechat_fans_base_data (node_code, node_name,
+      subject, message_type, auth_appid, 
+      material_id, material_name, material_type,
+      out_type, remark, update_time, 
+      text_body, image_url)
+    values (#{nodeCode,jdbcType=VARCHAR}, #{nodeName,jdbcType=VARCHAR},
+      #{subject,jdbcType=VARCHAR}, #{messageType,jdbcType=VARCHAR}, #{authAppid,jdbcType=VARCHAR}, 
+      #{materialId,jdbcType=VARCHAR}, #{materialName,jdbcType=VARCHAR}, #{materialType,jdbcType=VARCHAR}, 
+      #{outType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{textBody,jdbcType=LONGVARCHAR}, #{imageUrl,jdbcType=LONGVARCHAR})
+  </insert>
+
+</mapper>

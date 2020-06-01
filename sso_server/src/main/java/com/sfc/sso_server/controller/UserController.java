@@ -3,6 +3,7 @@ package com.sfc.sso_server.controller;
 import com.github.pagehelper.PageInfo;
 import com.sfc.sso_server.entity.User;
 import com.sfc.sso_server.pub.utils.RedissonService;
+import com.sfc.sso_server.service.interfaces.ISequenceService;
 import com.sfc.sso_server.service.interfaces.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.record.formula.functions.T;
@@ -36,6 +37,9 @@ public class UserController {
 
     @Autowired
     private RedissonService redissonService;
+
+    @Autowired
+    private ISequenceService iSequenceService;
 
     /**
      * 测试查询数据
@@ -103,5 +107,11 @@ public class UserController {
         }else{
             System.out.println("！！！");
         }
+    }
+
+    @RequestMapping(value = "/getSequence", method = RequestMethod.GET)
+    public String getSequence(@RequestParam String username){
+        String cardNo = iSequenceService.getCardNo();
+        return cardNo;
     }
 }
