@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
-<mapper namespace="com.example.demo.dao.JobAndTriggerMapper">  
-    
+<mapper namespace="com.example.demo.dao.JobAndTriggerMapper">
     <select id="getJobAndTriggerDetails" resultType="com.example.demo.entity.JobAndTrigger">
-			SELECT
-				qrtz_job_details.JOB_NAME,
-				qrtz_job_details.JOB_GROUP,
-				qrtz_job_details.JOB_CLASS_NAME,
-				qrtz_triggers.TRIGGER_NAME,
-				qrtz_triggers.TRIGGER_GROUP,
-				qrtz_cron_triggers.CRON_EXPRESSION,
-				qrtz_cron_triggers.TIME_ZONE_ID
-			FROM
-				qrtz_job_details
-			JOIN qrtz_triggers
-			JOIN qrtz_cron_triggers ON qrtz_job_details.JOB_NAME = qrtz_triggers.JOB_NAME
-			AND qrtz_triggers.TRIGGER_NAME = qrtz_cron_triggers.TRIGGER_NAME
-			AND qrtz_triggers.TRIGGER_GROUP = qrtz_cron_triggers.TRIGGER_GROUP
-    </select>
-    
+		SELECT t1.JOB_NAME, t1.JOB_GROUP, t1.JOB_CLASS_NAME,
+		t2.TRIGGER_NAME, t2.TRIGGER_GROUP, t3.CRON_EXPRESSION, t3.TIME_ZONE_ID
+		FROM qrtz_job_details t1
+		inner join qrtz_triggers t2 ON t1.JOB_NAME = t2.JOB_NAME AND t1.JOB_GROUP = t2.JOB_GROUP
+		inner join qrtz_cron_triggers t3 ON t1.JOB_NAME = t3.TRIGGER_NAME AND t1.JOB_GROUP = t3.TRIGGER_GROUP
+	</select>
 </mapper>

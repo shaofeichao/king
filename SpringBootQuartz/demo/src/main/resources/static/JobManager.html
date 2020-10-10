@@ -205,6 +205,7 @@
                 		this.totalCount = res.body.number;
                 	},function(){
                   		console.log('failed');
+						alert('读取任务异常,请联系管理员!');
                 	});					
 				},			    		        
 				      
@@ -214,7 +215,8 @@
 						this.loadData( this.currentPage, this.pagesize);
 		            },function(){
 		                console.log('failed');
-		            });
+						alert('删除任务异常,请联系管理员!');
+					});
 		        },
 		        
 		        //暂停任务
@@ -223,7 +225,8 @@
 						this.loadData( this.currentPage, this.pagesize);
 		            },function(){
 		                console.log('failed');
-		            });
+						alert('暂停任务异常,请联系管理员!');
+					});
 		        },
 		        
 		        //恢复任务
@@ -232,7 +235,8 @@
 						this.loadData( this.currentPage, this.pagesize);
 		            },function(){
 		                console.log('failed');
-		            });
+						alert('恢复任务异常,请联系管理员!');
+					});
 		        },
 		        
 		        //搜索
@@ -251,7 +255,8 @@
         				this.loadData(this.currentPage, this.pagesize);
         				this.dialogFormVisible = false;
                     },function(){
-                        console.log('failed');
+						console.log('failed');
+						alert('添加任务异常,请联系管理员!');
                     });
 		        },
 		        
@@ -276,6 +281,7 @@
         				this.updateFormVisible = false;
 		        	},function(){
                         console.log('failed');
+						alert('更新任务异常,请联系管理员!');
                     });
 		    
 		        },

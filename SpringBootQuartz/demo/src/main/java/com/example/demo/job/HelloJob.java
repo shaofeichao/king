@@ -1,22 +1,18 @@
 package com.example.demo.job;
 
-import java.util.Date;  
-import org.slf4j.Logger;  
-import org.slf4j.LoggerFactory;   
-import org.quartz.JobExecutionContext;  
-import org.quartz.JobExecutionException;  
-  
-public class HelloJob implements BaseJob {  
-  
-    private static Logger _log = LoggerFactory.getLogger(HelloJob.class);  
-     
-    public HelloJob() {  
-          
-    }  
-     
-    public void execute(JobExecutionContext context)  
-        throws JobExecutionException {  
-        _log.error("Hello Job执行时间: " + new Date());  
-          
-    }  
-}  
+import java.util.Date;
+
+import lombok.extern.slf4j.Slf4j;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+
+@Slf4j
+public class HelloJob implements BaseJob {
+
+    public HelloJob() {
+    }
+
+    public void execute(JobExecutionContext context) throws JobExecutionException {
+        log.info("HelloJob执行时间: {}", new Date());
+    }
+}
