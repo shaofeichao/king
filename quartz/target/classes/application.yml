@@ -1,0 +1,33 @@
+application:
+  server:
+    name: quartz
+
+server:
+  servlet:
+    context-path: /quartz/v1
+  undertow:
+    io-threads: 16
+    worker-threads: 256
+    buffer-size: 1024
+    direct-buffers: true
+
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    com:
+      shuyun:
+        crmep:
+          customized: DEBUG
+
+slave:
+  datasource:
+    url: jdbc:mysql://localhost:3306/openapi?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8
+    username: root
+    password: root
+    driverClassName: com.mysql.jdbc.Driver
+master:
+  datasource:
+    url: jdbc:mysql://localhost:3306/king?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8
+    username: root
+    password: root
+    driverClassName: com.mysql.jdbc.Driver

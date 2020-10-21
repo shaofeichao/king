@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true" scanPeriod="600 seconds" debug="false">
+    <contextName>etl</contextName>
+    <property name="LOG_PATTERN"
+              value="[%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8}] [%-5level] [%class{0}:%method:%line] [%t] [-[%msg]-] %n"/>
+    <property name="FILE_LOG_PATTERN_" value="${FILE_LOG_PATTERN:-${LOG_PATTERN}}"/>
+    <property name="LOG_PATTERN"
+              value="[%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8}] [%-5level] [%class{0}:%method:%line] [%t] [-[%msg]-] %n"/>
+    <property name="time" value="${bySecond}"/>
+    <property name="system.logging.dir" value="${system.logging.dir:-/data/log}"/>
+    <property name="system.logging.bakdir" value="${system.logging.bakdir:-/data/logbak}"/>
+
+
+    <property name="ROOT_LOG_LEVEL" value="${ROOT_LOG_LEVEL:-INFO}"/>
+    <property name="APP_VERSION" value="${APP_VERSION:-1.0.0}"/>
+    <property name="ENVIRONMENT" value="${ENVIRONMENT:-dev}"/>
+    <property name="SANDBOX" value="${SANDBOX:-base}"/>
+    <property name="MESOS_TASK_ID" value="${MESOS_TASK_ID:-001}"/>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <!-- override org/springframework/boot/logging/logback/defaults.xml FILE_LOG_PATTERN configuration -->
+    <property name="FILE_LOG_PATTERN" value="${FILE_LOG_PATTERN_}"/>
+
+    <!-- 控制台设置 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder 默认配置为PatternLayoutEncoder -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5}-%L : %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- override org/springframework/boot/logging/logback/defaults.xml FILE_LOG_PATTERN configuration -->
+
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>
+            ${system.logging.dir}/${SERVICE_NAME}/${APP_VERSION}/${ENVIRONMENT}/${SANDBOX}/${MESOS_TASK_ID}/${SERVICE_NAME}.log
+        </file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${system.logging.bakdir}/${SERVICE_NAME}/${APP_VERSION}/${ENVIRONMENT}/${SANDBOX}/${MESOS_TASK_ID}/${SERVICE_NAME}.log.%d{yyyyMMdd}
+            </fileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </layout>
+    </appender>
+
+
+    <!-- * 通配符 设置log打印级别 对所有类有效TRACE, DEBUG, INFO, WARN, ERROR, ALL 和 OFF-->
+    <root level="${ROOT_LOG_LEVEL}">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="file"/>
+    </root>
+    <!-- <root level="DEBUG">
+         <appender-ref ref="STDOUT" />
+         <appender-ref ref="file" />
+     </root>-->
+</configuration>

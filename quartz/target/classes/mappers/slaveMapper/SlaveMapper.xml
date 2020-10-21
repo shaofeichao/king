@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quartz.task.slaveMapper.SlaveMapper">
+    <select id="InitializerJob" resultType="com.quartz.task.entity.slaveEntity.Job">
+        select job_id, job_name, job_group, job_class, job_cron_exprssion from job where job_status = 1
+    </select>
+    <select id="getJob" resultType="com.quartz.task.entity.slaveEntity.Job">
+        select job_id, job_name, job_group, job_class, job_cron_exprssion,
+        case when job_status = 1 then '正常' when job_status = 2 then '暂停' else '停用' end as job_status
+        from job
+    </select>
+    <update id="updateJob" parameterType="String">
+        update job set job_cron_exprssion = #{jobCronExpression} where job_id = #{jobId}
+    </update>
+    <update id="updateJobStatus" parameterType="String">
+        update job set job_status = #{jobStatus} where job_id = #{jobId}
+    </update>
+    <insert id="saveJob" parameterType="com.quartz.task.entity.slaveEntity.Job">
+        insert into job (job_name, job_group, job_class, job_cron_exprssion, job_status)
+        values(#{job_name}, #{job_group}, #{job_class}, #{job_cron_exprssion}, #{job_status})
+    </insert>
+</mapper>

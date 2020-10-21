@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug" strict="true" name="log4j2">
+    <Properties>
+        <Property name="log.level.console">debug</Property>
+        <Property name="log.level.xjj">debug</Property>
+        <Property name="log.path">${sys:logPath}</Property>
+    </Properties>
+    <Filter type="ThresholdFilter" level="info"/>
+
+    <Appenders>
+        <!-- 控制台 -->
+        <Appender type="Console" name="stdout" target="SYSTEM_OUT">
+            <Layout type="PatternLayout" pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}:%4p %t (%F:%L) - %m%n"/>
+            <Filters>
+                <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </Appender>
+
+        <!-- info日志 -->
+        <RollingFile name="info_file" fileName="${log.path}/info/info.log" filePattern="${log.path}/info/info_%d{yyyy-MM-dd}_%i.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}:%4p %t (%F:%L) - %m%n" />
+            <Policies>
+                <!-- 每24小时更新一次 -->
+                <TimeBasedTriggeringPolicy modulate="true" interval="1" />
+            </Policies>
+            <!-- 最多备份10个 -->
+            <DefaultRolloverStrategy max="10" />
+            <Filters>
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+
+        <!-- error日志 -->
+        <RollingFile name="error_file" fileName="${log.path}/error/error.log" filePattern="${log.path}/error/error_%d{yyyy-MM-dd}_%i.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}:%4p %t (%F:%L) - %m%n" />
+            <Policies>
+                <!-- 每24小时更新一次 -->
+                <TimeBasedTriggeringPolicy modulate="true" interval="1" />
+            </Policies>
+            <!-- 最多备份10个 -->
+            <DefaultRolloverStrategy max="10" />
+            <Filters>
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="stdout"/>
+            <AppenderRef ref="info_file"/>
+            <AppenderRef ref="error_file"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
