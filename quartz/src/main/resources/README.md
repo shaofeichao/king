@@ -1,7 +1,7 @@
 #内容均为本人盗版吸取各个大佬文章进行优化整合,如有侵权请告知 谢谢 QQ:993303626
 #讨论技术欢迎加 QQ:993303626
 
-#使用必读
+#使用必读(https://www.w3cschool.cn/quartz_doc/quartz_doc-2put2clm.html)
 本工程基于springboot 2.3.0 + quartz + mybatis + 一张简单界面 + 多数据源  集成的快速开发的无任何封装定时任务框架可自由修改调试
 
 #只需要初始化一张表
