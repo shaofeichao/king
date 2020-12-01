@@ -1,6 +1,5 @@
-package com.sfc.sso_server;
+package com.common.program;
 
-import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
