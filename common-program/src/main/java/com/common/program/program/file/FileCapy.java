@@ -1,4 +1,4 @@
-package com.common.program.program;
+package com.common.program.program.file;
 
 import java.io.*;
 
@@ -6,7 +6,7 @@ import java.io.*;
  * @author sfc
  * 文件复制
  */
-public class FilaCapy {
+public class FileCapy {
 
     public static void main(String[] args){
         String path = "E:/file_y";
