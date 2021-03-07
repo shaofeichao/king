@@ -3,6 +3,8 @@ package com.rest.rest_server.controller;
 import com.github.pagehelper.PageInfo;
 import com.rest.rest_server.entity.User;
 import com.rest.rest_server.service.interfaces.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
+@Api(value = "这是USER",tags = "这是USER")
 @RestController
 //@Controller(RestController表示本类下的方法都是直接做内容返回到浏览器Controller用于控制层)
 @RequestMapping("/user")
@@ -32,6 +35,7 @@ public class UserController {
      * @param username
      * @return
      */
+    @ApiOperation(value = "这是查询USER", notes="这是查询USER")
     @RequestMapping(value = "/selectUser", method = RequestMethod.GET)
     public String selectUser(@RequestParam String username){
         log.info(">>>>>>获取到前台参数{}...",username);

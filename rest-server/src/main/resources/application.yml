@@ -1,13 +1,13 @@
 info:
-  description: SSO
+  description: rest-server
   
 server:
   port: 8080
 
 spring:
   datasource:
-    name:  king
-    url: jdbc:mysql://47.117.122.115:3306/openapi?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8
+    name:  mysql
+    url: jdbc:mysql://47.117.122.115:3306/mysql?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8
     username: root
     password: 1QAZ2wsx
     driver-class-name: com.mysql.jdbc.Driver
@@ -49,13 +49,13 @@ spring:
     poolMaxWait: 3
 # mybatis配置
 mybatis:
-  mapper-locations: classpath:com/sfc/sso_server/dao/impl/*.xml  #这里是mapper的绝对路径
-  type-aliases-package: com.sfc.sso_server.entity  #这里是实体类的绝对路径
+  mapper-locations: classpath:com/rest/rest_server/dao/impl/*.xml  #这里是mapper的绝对路径
+  type-aliases-package: com.rest.rest_server.entity  #这里是实体类的绝对路径
 
 # 打印sql接口绝对路径
 logging:
   level:
-    com.sfc.sso_server.dao.interfaces: DEBUG
+    com.rest.rest_server.dao.interfaces: DEBUG
 
 #pagehelper分页插件
 pagehelper:

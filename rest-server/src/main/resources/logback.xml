@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="10 seconds">
     <!--定义日志文件的存储地址log_path绝对路径和前缀名log_context -->
-    <property name="og_path" value="sso_server/src/main/resources/logs" />
+    <property name="og_path" value="rest_server/src/main/resources/logs" />
     <property name="log_context" value="xxx_server" />
 
     <!-- 控制台输出-->
